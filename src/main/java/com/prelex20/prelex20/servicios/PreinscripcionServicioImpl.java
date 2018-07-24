@@ -29,7 +29,7 @@ public class PreinscripcionServicioImpl implements PreinscripcionServicio {
 
     @Override
     public Preinscripcion obtenerPreinscripcion(int id) {
-        return preinscripcionRepositorio.findOne(id);
+        return preinscripcionRepositorio.getOne(id);
     }
 
     /**Guarda una preinscripcion
@@ -45,7 +45,7 @@ public class PreinscripcionServicioImpl implements PreinscripcionServicio {
 
     @Override
     public void eliminarPreinscripcion(int id) {
-        preinscripcionRepositorio.delete(id);
+        preinscripcionRepositorio.deleteById(id);
     }
 
     @Override

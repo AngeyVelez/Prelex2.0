@@ -2,7 +2,7 @@ package com.prelex20.prelex20.entidades;
 
 public class Pagina {
 
-	private int buttonsToShow = 5;
+	private int buttonsToShow = 7;
 
 	private int startPage;
 

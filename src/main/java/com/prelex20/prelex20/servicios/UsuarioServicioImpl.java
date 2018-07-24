@@ -26,7 +26,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		HashSet<Rol> rols = new HashSet<>();
 		Rol rol = rolRepositorio.findByName(name);
 		rols.add(rol);
-		usuario.setRoles(rols);
+		usuario.setRols(rols);
 		usuarioRepositorio.save(usuario);
 	}
 

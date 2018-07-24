@@ -30,7 +30,7 @@ public class NivelServicioImpl implements NivelServicio{
 	 */
 	@Override
 	public Nivel obtenerNivel(String id) {
-		return nivelRepositorio.findOne(id);
+		return nivelRepositorio.getOne(id);
 	}
 
 	/**Guarda un nivel
@@ -47,7 +47,7 @@ public class NivelServicioImpl implements NivelServicio{
 	 */
 	@Override
 	public void eliminarNivel(String id) {
-		nivelRepositorio.delete(id);		
+		nivelRepositorio.deleteById(id);		
 	}
 
 }

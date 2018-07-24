@@ -37,7 +37,7 @@ public class MatriculaServicioImpl implements MatriculaServicio{
 	 */
     @Override
     public Matricula obtenerMatricula(Long id) {
-        return matriculaRepositorio.findOne(id);
+        return matriculaRepositorio.getOne(id);
     }
 
 	/**Implementa el metodo necesario para guardar una matricula
@@ -55,7 +55,7 @@ public class MatriculaServicioImpl implements MatriculaServicio{
 	 */	
     @Override
     public void eliminarMatricula(Long id) {
-    	matriculaRepositorio.delete(id);
+    	matriculaRepositorio.deleteById(id);
 
     }
     

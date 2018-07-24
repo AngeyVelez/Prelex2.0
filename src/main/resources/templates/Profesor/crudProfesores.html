@@ -48,98 +48,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="profesor : ${profesores}">
 						<td>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1"></input>
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td>Thomas Hardy</td>
-                        <td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-                        <td>(171) 555-2222</td>
+                        <td th:text="${profesor.getNumeroDocumento()}"></td>
+                        <td th:text="${profesor.nombreCompleto()}"></td>
+						<td th:text="${profesor.getEspecialidad()}"></td>
+                        <td th:text="${profesor.getEmail()}"></td>
+                        <td th:text="${profesor.getTelefono()}"></td>
+                        <td th:text="${profesor.getEps()}"></td>
+						<td th:text="${profesor.getDireccion()}"></td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1"></input>
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-                        <td>Dominique Perrier</td>
-                        <td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-                        <td>(313) 555-5735</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1"></input>
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-                        <td>Maria Anders</td>
-                        <td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-                        <td>(503) 555-9931</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1"></input>
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-                        <td>Fran Wilson</td>
-                        <td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-                        <td>(204) 619-5731</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>					
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1"></input>
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-                        <td>Martin Blank</td>
-                        <td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-                        <td>(480) 631-2097</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr> 
                 </tbody>
             </table>
 			<div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <!-- <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div> -->
                 <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+					<li th:class="${profesores.number == 0} ? 'page-item disabled': 'page-item'">
+						<a class="page-link" th:href="@{page(pageSize=${selectedPageSize}, page=1)}">Inicio</a>
+					</li>
+					<li th:class="${profesores.number == 0} ? 'page-item disabled': 'page-item'">
+						<a class="page-link" th:href="@{page(pageSize=${selectedPageSize}, page=${profesores.number})}">Anterior</a>
+					</li>
+					<li	th:class="${profesores.number == (page - 1)} ? 'page-item active': 'page-item'"
+						th:each="page : ${#numbers.sequence(pagina.startPage, pagina.endPage)}">
+						<a class="page-link" th:href="@{page(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+					</li>
+					<li
+						th:class="${profesores.number + 1 == profesores.totalPages} ? 'page-item disabled': 'page-item'">
+						<a class="page-link" th:href="@{page(pageSize=${selectedPageSize}, page=${profesores.number + 2})}">Siguiente</a>
+					</li>
+					<li
+						th:class="${profesores.number + 1 == profesores.totalPages} ? 'page-item disabled': 'page-item'">
+						<a class="page-link" th:href="@{page(pageSize=${selectedPageSize}, page=${profesores.totalPages})}">Final</a>
+					</li>
                 </ul>
             </div>
         </div>
@@ -148,7 +98,7 @@
 	<div id="addEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  th:object = "${nuevoProfesor}" th:action="@{/profesor/}" method = "post">
 					<div class="modal-header">						
 						<h4 class="modal-title">Agregar profesor</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -156,31 +106,53 @@
 					<div class="modal-body">					
 						<div class="form-group">
 							<label>Documento</label>
-							<input type="text" class="form-control" required = "required"></input>
+							<input th:field = "*{numeroDocumento}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('numeroDocumento')}" th:errors="*{numeroDocumento}" class="validation-message"> </label>
 						</div>
 						<div class="form-group">
-							<label>Nombre completo</label>
-							<input type="text" class="form-control" required = "required"></input>
+							<label>Nombre 1</label>
+							<input th:field = "*{nombre1}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('nombre1')}" th:errors="*{nombre1}" class="validation-message"> </label>
+						</div>
+						<div class="form-group">
+							<label>Nombre 2</label>
+							<input th:field = "*{nombre2}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('nombre2')}" th:errors="*{nombre2}" class="validation-message"> </label>
+						</div>
+						<div class="form-group">
+							<label>Apellido 1</label>
+							<input th:field = "*{apellido1}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}" class="validation-message"> </label>
+						</div>
+						<div class="form-group">
+							<label>Apellido 2</label>
+							<input th:field = "*{apellido2}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}" class="validation-message"> </label>
 						</div>
 						<div class="form-group">
 							<label>Especialidad</label>
-							<input type= "text" class="form-control" required = "required"></input>
+							<input th:field = "*{especialidad}" type= "text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('especialidad')}" th:errors="*{especialidad}" class="validation-message"> </label>
 						</div>
 						<div class="form-group">
 							<label>Email</label>
-							<input type="email" class="form-control" required = "required"></input>
+							<input th:field = "*{email}" type="email" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"> </label>
 						</div>		
 						<div class="form-group">
 							<label>Teléfono</label>
-							<input type="text" class="form-control" required = "required"></input>
+							<input th:field = "*{telefono}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="validation-message"> </label>
 						</div>	
 						<div class="form-group">
 							<label>Eps</label>
-							<input type="text" class="form-control" required = "required"></input>
+							<input th:field = "*{eps}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('eps')}" th:errors="*{eps}" class="validation-message"> </label>
 						</div>	
 						<div class="form-group">
 							<label>Dirección</label>
-							<input type="text" class="form-control" required = "required"></input>
+							<input th:field = "*{direccion}" type="text" class="form-control" required = "required"></input>
+							<label th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" class="validation-message"> </label>
 						</div>				
 					</div>
 					<div class="modal-footer">

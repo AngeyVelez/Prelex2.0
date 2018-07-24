@@ -42,7 +42,7 @@ public class GrupoServicioImpl implements GrupoServicio{
 	@Override
 	public Grupo obtenerGrupoPorId(int id) {
 		
-		return grupoRepositorio.findOne(id);
+		return grupoRepositorio.getOne(id);
 	}
 
 	/**Guarda un grupo
@@ -69,7 +69,7 @@ public class GrupoServicioImpl implements GrupoServicio{
 
 	@Override
 	public void eliminarGrupo(int id) {
-		grupoRepositorio.delete(id);
+		grupoRepositorio.deleteById(id);
 	}
 
 	@Override

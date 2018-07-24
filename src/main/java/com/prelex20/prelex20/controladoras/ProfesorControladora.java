@@ -10,8 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,10 +31,9 @@ import com.prelex20.prelex20.servicios.ProfesorServicio;
 @RequestMapping("/profesor")
 public class ProfesorControladora {
 
-    private static final int BUTTONS_TO_SHOW = 5;
+    private static final int BUTTONS_TO_SHOW = 7;
     private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
-    private static final int[] PAGE_SIZES = {5, 10, 20};
+    private static final int INITIAL_PAGE_SIZE = 7;
     
 	@Autowired
     private ProfesorServicio profesorServicio;
@@ -42,13 +43,36 @@ public class ProfesorControladora {
      * @param model es el modelo que posteriormente se va a renderizar
      * con thymeleaf
      * @return el nombre de la pagina donde se mostrara la lista de profesores
-     */
+     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String lista(Model model) {
         LinkedList<Profesor> profesores = profesorServicio.listarProfesores();
         model.addAttribute("profesores", profesores);
         return "Profesor/crudProfesores";
     }
+    */
+	
+	@GetMapping(value = {"/", "/page"})
+    public String showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page, Model model) {
+
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Profesor> profesor = profesorServicio.findAllPageable(PageRequest.of(evalPage, evalPageSize));
+        Pagina pagina = new Pagina(profesor.getTotalPages(), profesor.getNumber(), BUTTONS_TO_SHOW);
+
+        model.addAttribute("profesores", profesor);
+        model.addAttribute("selectedPageSize", evalPageSize);
+        model.addAttribute("pagina", pagina);
+        model.addAttribute("nuevoProfesor", new Profesor());
+        return "Profesor/crudProfesores";
+    }
+	
     /**Dado un id en la ruta 'profesor/{id}', muestra toda la informacion
      * del profesor correspondiente
      * @param model es el modelo que posteriormente se va a renderizar
@@ -60,6 +84,7 @@ public class ProfesorControladora {
     public String mostrarProfesor(@PathVariable String id, Model model) {
         LinkedList<Profesor> profesores = new LinkedList<>();
         Profesor profesor = profesorServicio.obtenerProfesor(id);
+        System.out.println();
 
         if (profesor !=null) {
             profesores.add(profesor);
@@ -106,13 +131,17 @@ public class ProfesorControladora {
      * @param profesor profesor que se recibe por la peticion POST
      * @return el nombre de la pagina donde se redireccionara
      */
-    @RequestMapping(value = "profesores", method = RequestMethod.POST)
+    @PostMapping("/")
     // Con @valid nos aseguramos que el contenido de la peticion sea valido
-    public String guardarProfesores(@Valid @RequestBody LinkedList<Profesor> profesores) {
-        for (Profesor profesor : profesores) {
-        	profesorServicio.guardarProfesor(profesor);
-		}
-        return "redirect:/profesor/";
+    public String guardarProfesores(@Valid Profesor profesor, BindingResult bidingResult, Model model) {
+    	System.out.println("Entro post");
+    	if(!bidingResult.hasErrors()) {
+            profesorServicio.guardarProfesor(profesor);
+            model.addAttribute("exito", 1);
+
+        	return "Profesor/crudProfesores";
+    	}
+    	return "redirect:/profesor/#addEmployeeModal";
     }
 
     /**Permite eliminar un profesor dado un id,ingresando a la ruta: 'profesor/eliminar/{id}'
@@ -127,25 +156,4 @@ public class ProfesorControladora {
 
         return "redirect:/profesores";
     }
-    
-    /*@GetMapping("/")
-    public String showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page, Model model) {
-
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-
-        Page<Profesor> profesor = profesorServicio.findAllPageable(PageRequest.of(evalPage, evalPageSize));
-        Pagina pagina = new Pagina(profesor.getTotalPages(), profesor.getNumber(), BUTTONS_TO_SHOW);
-
-        model.addAttribute("profesores", profesor);
-        model.addAttribute("selectedPageSize", evalPageSize);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pagina", pagina);
-        return "";
-    }*/
 }

@@ -27,7 +27,7 @@ public class DetallesUsuarioServicioImpl implements UserDetailsService {
 	    	Usuario usuario = usuarioRepositorio.findByUsername(username);
 	        System.out.println("Usuario: "+username+" retorna"+usuario);
 	        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-	        for (Rol rol : usuario.getRoles()){
+	        for (Rol rol : usuario.getRols()){
 	        	System.out.println("rol "+rol.getName());
 	            grantedAuthorities.add(new SimpleGrantedAuthority(rol.getName()));
 	        }

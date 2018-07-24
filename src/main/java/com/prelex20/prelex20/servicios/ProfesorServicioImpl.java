@@ -31,7 +31,7 @@ public class ProfesorServicioImpl implements ProfesorServicio{
 
     @Override
     public Profesor obtenerProfesor(String id) {
-        return profesorRepositorio.findOne(id);
+        return profesorRepositorio.getOne(id);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ProfesorServicioImpl implements ProfesorServicio{
 
     @Override
     public void eliminarProfesor(String id) {
-        profesorRepositorio.delete(id);
+        profesorRepositorio.deleteById(id);
 
     }
 

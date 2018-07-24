@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "profesor")
@@ -43,6 +44,8 @@ public class Profesor implements java.io.Serializable {
 		this.email = email;
 	}
 	
+	@NotNull
+	@Size(min = 5, message = "apellido con menos de 5 caracteres")
 	@Column(name = "apellido1", nullable = false)
 	public String getApellido1() {
 		return apellido1;
@@ -53,21 +56,26 @@ public class Profesor implements java.io.Serializable {
 		return apellido2;
 	}
 
+	
 	@Column(name = "direccion")
 	public String getDireccion() {
 		return direccion;
 	}
 
+	@Size(min = 5)
 	@Column(name = "eps")
 	public String getEps() {
 		return eps;
 	}
 
+	@Size(min = 5)
 	@Column(name = "especialidad")
 	public String getEspecialidad() {
 		return especialidad;
 	}
 
+	@NotNull
+	@Size(min = 5)
 	@Column(name = "nombre1", nullable = false)
 	public String getNombre1() {
 		return nombre1;
@@ -79,16 +87,20 @@ public class Profesor implements java.io.Serializable {
 	}
 
 	@Id
+	@NotNull
 	@Column(name = "numero_documento", unique = true, nullable = false)
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
 
+	@NotNull
 	@Column(name = "telefono")
 	public String getTelefono() {
 		return telefono;
 	}
 	
+	@NotNull
+	@Email
 	@Column(name = "email")
 	public String getEmail() {
 		return email;
@@ -141,5 +153,18 @@ public class Profesor implements java.io.Serializable {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String nombreCompleto() {
+		String nombre = "";
+		nombre = nombre+this.nombre1 +" ";
+		if (!this.nombre2.isEmpty()) {
+			nombre = nombre+this.nombre2+" ";
+		}
+		nombre = nombre+this.apellido1;
+		if (!this.apellido2.isEmpty()) {
+			nombre = nombre+" "+this.apellido2;
+		}
+		return nombre;
 	}
 }

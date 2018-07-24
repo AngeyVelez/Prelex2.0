@@ -36,7 +36,7 @@ public class EstudianteServicioImpl implements EstudianteServicio {
 	 */	
     @Override
     public Estudiante obtenerEstudiante(String id) {
-        return estudianteRepositorio.findOne(id);
+        return estudianteRepositorio.getOne(id);
     }
 
     /**Permite guardar un estudiante.
@@ -53,7 +53,7 @@ public class EstudianteServicioImpl implements EstudianteServicio {
 	 */	
     @Override
     public void eliminarEstudiante(String id) {
-        estudianteRepositorio.delete(id);
+        estudianteRepositorio.deleteById(id);;
 
     }
 }

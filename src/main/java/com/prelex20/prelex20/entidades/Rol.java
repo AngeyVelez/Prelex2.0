@@ -4,7 +4,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role")
+@Table(name = "rol")
 public class Rol {
 	private Long id;
     private String name;
@@ -28,7 +28,7 @@ public class Rol {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "rols")
     public Set<Usuario> getUsers() {
         return usuarios;
     }
