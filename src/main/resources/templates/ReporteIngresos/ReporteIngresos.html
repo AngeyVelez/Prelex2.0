@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"></meta>
+<title>GENERAR REPORTE DE INGRESOS</title>
+<!-- Bootstrap 4 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+</head>
+<body>
+	<nav th:replace="Base/base :: nav"></nav>
+
+	<header id="header">
+		<div class="container mt-5 text-center">
+			<div>
+				<h1>Reporte de ingresos</h1>
+			</div>
+		</div>
+	</header>
+
+	<section id="section">
+		<div class="container">
+			<div class="col-md-12 row justify-content-center">
+				<form class="card mt-5 col-md-6 col-md-offset-6">
+					<div class="card-body">
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Periodo</th>
+									<!-- <tr th:each="nivel: ${niveles}" th:text="${nivel.getNombre()} th:value="${nivel.getCodigo()}"></tr> -->
+									<th scope="col">Ingresos</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+						<label for="totalIngresos" class="mt-5 col-md-5"> Total
+							Ingresos </label> <input type="text" class="form-control col-md-3"
+							id="totalIngresos" /> <a href="#"
+							class="btn btn-secondary btn-lg active mt-5 col-md-5"
+							role="button" aria-pressed="true"> Volver </a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- script del dayepicker
+ <script>$('#fechaInicio').datepicker({ uiLibrary: 'bootstrap4'});</script>
+ <script>$('#fechaFin').datepicker({ uiLibrary: 'bootstrap4'});</script> -->
+	<!-- Bootstrap 4 scripts -->
+	<div th:replace="Base/base :: scriptsBootstrap"></div>
+</body>
+</html>

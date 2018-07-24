@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+</head>
+<body>	
+	<nav th:replace ="Base/base :: nav"></nav>
+	<div class="container">
+		<form th:action="@{/login}" method="POST" class="form-signin">
+			<h3 class="form-signin-heading" th:text="Login"></h3>
+			<br></br>
+			 
+			<input type="text" id="username" name="username" th:placeholder="Usuario"
+				class="form-control" ></input> <br></br>
+			<input type="password"  th:placeholder="Password" id="password" name="password" class="form-control"></input> <br></br> 
+				
+			<div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+		</form>
+	</div>
+	
+	<div th:replace ="Base/base :: scriptsBootstrap"></div>
+</body>
+</html>

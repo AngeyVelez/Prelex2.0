@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></link>
+	<head>
+	    <meta charset="UTF-8"></meta>
+	    <title>Preinscripcion</title>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>	
+	    
+	</head>
+	<body>
+	<nav th:replace="Base/base :: nav"></nav>
+	<h6>Preinscripciones</h6>
+		<table align="center" style="width:99%" class="table table-strped table-bordered">
+		    <thead class="thead-dark">
+			    <tr align="center">
+			        <th scope="col">
+			            Nombre completo
+			        </th>
+			        <th scope="col">
+			            Número de Documento
+			        </th>
+			        <th scope="col">
+			            Teléfono
+			        </th>
+			        <th scope="col">
+			            Idioma
+			        </th>
+			        <th scope="col">
+			            Tipo
+			        </th>
+			        <th scope="col">
+			            Jornada
+			        </th>
+			        <th scope="col">
+			            Email
+			        </th>
+			        <th scope="col">
+			            Fecha de preinscripción
+			        </th>
+			        <th scope="col">
+			            ¿Eliminar?
+			        </th>
+			    </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:if="${preinscripciones.size() > 0}" th:each="preinscripcion :${preinscripciones}">
+		            <td  th:text="${preinscripcion.getNombreCompleto()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getNumeroDocumento()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getTelefono()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getIdioma()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getTipo()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getJornada()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getEmail()}">
+		
+		            </td>
+		            <td  th:text="${preinscripcion.getFecha()}">
+		
+		            </td>
+		            <td align="center">
+		                <form method="post">
+		                    <input type="hidden"  name="id" th:value="${preinscripcion.getId()}"></input>
+		                    <button class="btn btn-danger" type="submit">X</button>
+		                </form>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+		<div align="center">
+			<b  th:if="${totalPreinscripciones == 0}" th:text="${'No hay preinscripciones pendientes en el sistema'}"> 
+			</b>
+		</div>
+		<h6>Reporte cantidad de estudiantes</h6>
+		<table style="width:50%" class="table table-strped table-bordered">
+		    <thead class="thead-dark" align="center">
+		    	<tr scope="col">
+		    		<th>
+		    			&nbsp;
+		    		</th>
+		    		<th scope="col" th:if="${idiomas.size() > 0}" th:each="idioma :${idiomas}" th:text="${idioma}">
+		    		
+		        	</th>
+		    	</tr> 	
+		    </thead>
+		    <tbody>
+		    	 <tr th:if="${reporteIdiomaTipos.size() > 0}" th:each="reporteIdiomaTipo :${reporteIdiomaTipos}">
+		            <td th:each="campo : ${reporteIdiomaTipo}">
+		            	<p  th:text="${campo}"></p>
+		            </td>
+		         </tr>
+		         <tr>   
+		            <td>
+						Total
+		            </td>
+		            <td th:if="${totalesxIdioma.size() > 0}" th:each="totalxIdioma :${totalesxIdioma}" th:text="${totalxIdioma[1]}">
+		            		
+		            </td>
+		         </tr>   
+		    </tbody>
+		</table>
+
+		<table>
+		    <tr>
+		        <th>
+		            <b>
+		                Total preinscritos:&nbsp;
+		            </b>
+		        </th>
+		        <th th:text="${totalPreinscripciones}">
+		        	
+		        </th>
+		    </tr>
+		</table>
+		<div th:replace ="Base/base :: scriptsBootstrap"></div>
+	</body>
+</html>

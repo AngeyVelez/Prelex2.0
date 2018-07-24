@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></link>
+	<head>
+    	<meta charset="UTF-8"></meta>
+    	<title>editar profesor</title>
+    </head>
+    <body>
+    	<h6 th:if="${mensaje != null}" th:text="${mensaje}"></h6>
+	    <h6 align="center">Informacion del profesor</h6>	
+	   	<form method="post">	
+	    	<table style="width:99%" class="table table-strped table-bordered">
+	    		<thead class="thead-dark">
+	    			<tr>
+	    				<th scope="col">
+				    		Documento
+				    	</th>
+					    <th scope="col">
+					    	Nombre completo
+					    </th>
+					    <th scope="col">
+					    	Especialidad
+					    </th>
+					    <th scope="col">
+					    	Email
+					    </th>
+					    <th scope="col">
+					    	Telefono
+					    </th>
+					    <th scope="col">
+					    	Eps
+					    </th>
+					    <th scope="col">
+					    	Direccion
+					    </th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td th:text="${profesor.getNumeroDocumento()}">
+	    				</td>
+	    				<td  th:text="${profesor.getNombre1()}+' '+${profesor.getNombre2()}+' '+${profesor.getApellido1()}+' '+${profesor.getApellido2()}">	
+	    				</td>
+	    				<td th:text="${profesor.getEspecialidad()}">
+	    				</td>
+	    				<td th:text="${profesor.getEmail()}">
+	    				</td>
+	    				<td th:text="${profesor.getTelefono()}">
+	    				</td>
+	    				<td th:text="${profesor.getEps()}">
+	    				</td>
+	    				<td th:text="${profesor.getDireccion()}">
+	    				</td>
+	    			</tr>	
+	    			<tr>
+	    				<td>
+	    					<input class="form-control" placeholder="Documento" aria-label="Documento" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Nombre Completo" aria-label="Nombre Completo" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Especialidad" aria-label="Especialidad" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Telefono" aria-label="Telefono" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Eps" aria-label="Eps" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Dirección" aria-label="Dirección" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	<div align="center" >
+	    		<button type="submit" class="btn btn-success">Agregar cambios</button>
+	    	</div>
+	    	
+	   	</form>
+	</body>
+</html>		

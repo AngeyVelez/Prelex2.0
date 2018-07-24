@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></link>
+	<head>
+	    <title>Reporte de estudiantes</title>
+	    <meta charset="UTF-8"></meta>	
+	   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>	
+	        
+	</head>
+	<body>
+	<nav th:replace ="Base/base :: nav"></nav>
+	
+		<h1 class="titled-pane" align="center"> Reporte de Estudiantes </h1>
+	<table>
+		<th>
+			<from method="post"> 
+			    <tr>
+			        <h4>Fecha inicial: </h4>
+			        <input name="inputFechaI" type="date">
+			    </tr>
+			    <tr>
+			        <h4>Fecha final: </h4>
+			        <input name="inputFechaF" type="date">
+			    </tr>
+		</th>
+	  <div>
+	        <button type="submit" class="btn btn-success">Crear reporte</button>
+	        </from>
+	  </div>
+	</table>
+	<table class="table align="center" style="width:99%" class="table table-strped table-bordered">
+		<thead>
+			<tr align="center">
+		       <th class="col-xs-2">Ciclo</th>
+		       <th class="col-xs-2">Nivel</th>
+		       <th class="col-xs-2">Grupo</th>
+		       <th class="col-xs-2">Jornada</th>
+		       <th class="col-xs-2">Nombre</th>
+		       <th class="col-xs-2">Apellido</th>
+		       <th class="col-xs-2">EPS</th>
+		       <th class="col-xs-2">Numero de documento</th>
+		       <th class="col-xs-2">Telefono</th>
+	   		</tr>
+		</thead> 
+		<tbody>
+			<tr th:if="reporteEstudiantes.size > 0" th:each="reporteEstudiante: ${reporteEstudiantes}">
+		       <td th:text="${reporteEstudiante[0]}">
+		       </td>
+		        <td th:text="${reporteEstudiante[1]}">
+		       </td>
+		        <td th:text="${reporteEstudiante[2]}">
+		       </td>
+		        <td th:text="${reporteEstudiante[4]}">
+		       </td>
+		        <td th:text="${reporteEstudiante[5]}">
+		       </td>
+		        <td th:text="${reporteEstudiante[6]}">
+		       </td>
+		        <td th:text="${reporteEstudiante[7]}">
+		       </td>
+	    	</tr>
+		</tbody>
+	</table>
+	
+	<table style="width:50%" align=center" class="table table-strped table-bordered">
+		<thead>
+			<tr align="center">
+		        <th scope="col">
+		        	Ciclo
+		        </th>
+		        <th scope="col">
+		        	Nivel
+		        </th>
+		        <th scope="col">
+		        	Grupo
+		        </th>
+		        <th scope="col">
+		        	Jornada
+		        </th>
+		        <th scope="col">
+		        	Numero de estudiantes
+		        </th>
+	   		</tr>
+		</thead>   
+		<tbody>
+			<tr th:if="consolidado.size > 0" th:each="dato: ${consolidado}">
+				<th th:text="${dato[0]}">
+				
+				</th>
+				
+				<th th:text="${dato[1]}">
+				
+				</th>
+				<th th:text="${dato[2]}">
+				
+				</th>
+				<th th:text="${dato[3]}">
+				
+				</th>
+				<th th:text="${dato[4]}">
+				
+				</th>
+			</tr>
+		</tbody>    
+	</table>
+	<div align="center" style="width:50%"><h4>Total: </h4><label th:text="${totalEstudiantes}"></label></div>
+	<div th:replace ="Base/base :: scriptsBootstrap"></div>
+	</body>
+</html>

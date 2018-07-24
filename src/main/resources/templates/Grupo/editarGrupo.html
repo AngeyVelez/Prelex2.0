@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></link>
+	<head>
+    	<meta charset="UTF-8"></meta>
+    	<title>editar Grupo</title>
+    </head>
+    <body>
+    	<h6 th:if="${mensaje != null}" th:text="${mensaje}"></h6>
+	    <h6 align="center">Informacion del grupo</h6>	
+	   	<form method="post">	
+	    	<table style="width:99%" class="table table-strped table-bordered">
+	    		<thead class="thead-dark">
+	    			<tr>
+	    				<th scope="col">
+				    		Ciclo
+				    	</th>
+					    <th scope="col">
+					    	Jornada
+					    </th>
+					    <th scope="col">
+					    	Numero
+					    </th>
+					    <th scope="col">
+					    	Nivel
+					    </th>
+					    <th scope="col">
+					    	Profesor
+					    </th>
+					    <th scope="col">
+					    	Fecha de inicio
+					    </th>
+					    <th scope="col">
+					    	Fecha de fin
+					    </th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td th:text="${grupo.getCiclo()}">
+	    				</td>
+	    				<td th:text="${grupo.getJornada()}">
+	    				</td>
+	    				<td th:text="${grupo.getNumero()}">
+	    				</td>
+	    				<td th:text="${grupo.getNivel().getNombre()}">
+	    				</td>
+   						<td  th:text="${grupo.getProfesor().getNombre1()}+' '+${grupo.getProfesor().getNombre2()}+' '+${grupo.getProfesor().getApellido1()}+' '+${grupo.getProfesor().getApellido2()}">
+	    				</td>
+	    				<td th:text="${grupo.getFechaInicio()}">
+	    				</td>
+	    				<td th:text="${grupo.getFechaFin()}">
+	    				</td>
+	    			</tr>	
+	    			<tr>
+	    				<td>
+	    					<input  class="form-control" placeholder="Ciclo" aria-label="Ciclo" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Jornada" aria-label="Jornada" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Numero" aria-label="Numero" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Nivel" aria-label="Nivel" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input class="form-control" placeholder="Profesor" aria-label="Profesor" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input type="Date" class="form-control" placeholder="Fecha de Inicio" aria-label="Fecha de Inicio" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    				<td>
+	    					<input type="Date" class="form-control" placeholder="Fecha de Fin" aria-label="Fecha de Fin" aria-describedby="basic-addon1"></input>
+	    				</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	<div align="center" >
+	    		<button type="submit" class="btn btn-success">Agregar cambios</button>
+	    	</div>
+	    	
+	   	</form>
+	</body>
+</html>		

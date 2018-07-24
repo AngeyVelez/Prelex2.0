@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"></meta>
+<title>Subir Matriculas</title>
+<!-- Bootstrap 4 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+
+</head>
+
+<body>
+	<nav th:replace="Base/base :: nav"></nav>
+
+	<section id="section">
+		<div class="container">
+			<form>
+				<div class="row" id="grupo">
+					<div class="col-md-4 mt-5">
+						<label> Nivel </label> <select class="form-control" id="nivel">
+							<option th:each="nivel: ${niveles}"
+								th:text="${nivel.getNombre()}" th:value="${nivel.getCodigo()}"></option>
+						</select>
+					</div>
+
+					<div class="col-md-4 mt-5">
+						<label> Fecha Inicio </label> <input type="date"
+							class="form-control" id="fechaInicio" />
+					</div>
+					<div class="col-md-4 mt-5">
+						<label> Jornada </label> <select class="form-control" id="jornada">
+							<option value="Fin De Semana">Fin de semana</option>
+							<option value="Nocturna">Nocturna</option>
+						</select>
+					</div>
+					<div class="col-md-4 mt-3">
+						<label> Número grupo </label> <input type="number"
+							class="form-control" id="numero" />
+					</div>
+				</div>
+				<div id="divIds" class="col-md-7 mt-5">
+					<ul class="list-group">
+						<label class="mt-5 col-md-12 list-group-item active">
+							Ingrese el número de identificación y la tarifa de los
+							estudiantes </label>
+						<li class="list-group-item"><label for="id" class="col-md-1">
+								ID: </label> <input type="text" class="col-md-4" name="id" /> <label
+							for="id" class="col-md-2"> Tarifa: </label> <input type="text"
+							class="col-md-4" name="tarifa" /></li>
+					</ul>
+					<li class="list-group-item"><a
+						class="btn btn-primary btn-lg active col-md-5" role="button"
+						aria-pressed="true" id="btnAdicionar"> + </a> <a
+						class="btn btn-secondary btn-lg active col-md-6" role="button"
+						aria-pressed="true" id="btnQuitar"> - </a></li>
+				</div>
+				<div id="btns">
+					<a
+						class="btn btn-primary btn-lg active mt-5 col-md-5 row justify-content-center"
+						role="button" aria-pressed="true" id="btnRegistrar"> Registrar
+					</a>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" th:src="@{/js/libs/jquery-3.3.1.min.js}" />
+	<script type="text/javascript" th:src="@{/js/subirMatriculas.js}" />
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></link>
+	<head>
+    	<meta charset="UTF-8"></meta>
+    	<title>Mostrar Profesores</title>
+	</head>
+	<body>
+		<h6 th:if="${mensaje != null}" th:text="${mensaje}"></h6>
+		<div align="center" style ="heigth:50%">	
+				<table>
+					<tr>
+						<td>
+							<button class="btn btn-success" onclick="crearFila()">+</button>
+						</td>
+						<td>
+							<button class="btn btn-danger" onclick="eliminarFila()">-</button>
+						</td>
+					</tr>
+				</table>
+				<form method="post">
+				<table id="tbody" style="width:99%" class="table table-strped table-bordered"></table>
+					<div align ="center">
+						<button type="submit" class="btn btn-warning">Cargar profesores</button>
+					</div>
+				</form>
+		</div>	    
+		<h6 align="center">Profesores en Prelex</h6>
+		<div style="height:50%">
+			<table style="width:99%" class="table table-strped table-bordered">
+			    <thead class="thead-dark">
+			    	 <tr align="center">
+				   		<th scope="col">
+				    		Documento
+				    	</th>
+				    	<th scope="col">
+				    		Nombre completo
+				    	</th>
+					    <th scope="col">
+					    	Especialidad
+					    </th>
+					    <th scope="col">
+					    	Email
+					    </th>
+					    <th scope="col">
+					    	Telefono
+					    </th>
+					    <th scope="col">
+					    	Eps
+					    </th>
+					    <th scope="col">
+					    	Direccion
+					    </th>
+					    <th scope="col">
+					    	Eliminar
+					    </th>
+				  	</tr>	
+			    </thead>
+			    <tbody>
+			    	<tr align="center" th:if="${profesores.size() > 0}" th:each="profesor :${profesores}">
+			    		<td>
+			    			<a th:href="@{/profesores/editar/{orderId}(orderId=${profesor.getNumeroDocumento()})}" th:text="${profesor.getNumeroDocumento()}">
+			    				
+			    			</a>
+			    		</td>
+						<td  th:text="${profesor.getNombre1()}+' '+${profesor.getNombre2()}+' '+${profesor.getApellido1()}+' '+${profesor.getApellido2()}">
+			    		</td>
+			    		<td  th:text="${profesor.getEspecialidad()}">
+			    		</td>
+			    		<td  th:text="${profesor.getEmail()}">
+			    		</td>
+			    		<td  th:text="${profesor.getTelefono()}">
+			    		</td>
+			    		<td  th:text="${profesor.getEps()}">
+			    		</td>
+			    		<td  th:text="${profesor.getDireccion()}">
+			    		</td>
+			    		<td align="center">
+			    			<a th:href="@{/profesores/eliminar/{orderId}(orderId=${profesor.getNumeroDocumento()})}">
+			    				<button class="btn btn-danger">X</button>
+			    			</a>
+			    		</td>
+			    	</tr>
+			    </tbody>
+			</table>	
+		</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/mostrarProfesores.js}"></script>	
+	</body>
+</html>

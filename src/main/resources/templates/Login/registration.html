@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Registration</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>	
+</head>
+<body>
+	<nav th:replace ="Base/base :: nav"></nav>
+	
+	<form th:action="@{/}" method="get">
+		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+	</form>	
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" th:action="@{/registration}"
+					th:object="${userForm}" method="post" class="form-horizontal"
+					role="form" id="user">
+					<h2>Registration Form</h2>
+					<div class="form-group">
+						<div class="col-sm-9">
+						<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+								class="validation-message" id="username"></label>
+						<input type="text" th:field="*{username}" placeholder="Nombre de Usuario"
+								class="form-control" /> 
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" th:field="*{password}"
+								placeholder="Password" class="form-control" id = "password"/> <label
+								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" th:field="*{passwordConfirm}"
+								placeholder="Password Confirm" class="form-control" id="passwordConfirm"/> <label
+								th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<select th:field="*{roles}" class="form-control" id = "rol">
+								<option th:each="rol: ${roles}" th:text="${rol.getName()}" th:value="${rol.getName()}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block" id="btnRegistrar">Register User</button>
+						</div>
+					</div>
+					
+					<span th:utext="${successMessage}"></span>
+					
+					
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:replace ="Base/base :: scriptsBootstrap"></div>
+</body>
+</html>
