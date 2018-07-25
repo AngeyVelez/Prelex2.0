@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.prelex20.prelex20.entidades.Grupo;
 import com.prelex20.prelex20.entidades.Profesor;
 import com.prelex20.prelex20.repositorios.ProfesorRepositorio;
 
@@ -47,15 +48,15 @@ public class ProfesorServicioImpl implements ProfesorServicio{
 
 	@Override
 	public boolean validarDaclase(String id) {
-		if(!profesorRepositorio.validarProfesorEnGrupo(id).isEmpty())
-		{
+		Profesor profesor = obtenerProfesor(id);
+		for (Grupo g : profesor.getGrupos()) {
+			System.out.println(g.getId());
+		}
+		if(profesor.getGrupos().isEmpty()) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
-		}
-			
+		}			
 	}
 
 	@Override

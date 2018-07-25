@@ -34,6 +34,7 @@ public class ProfesorControladora {
     private static final int BUTTONS_TO_SHOW = 7;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 7;
+    private String mensaje = "";
     
 	@Autowired
     private ProfesorServicio profesorServicio;
@@ -66,10 +67,11 @@ public class ProfesorControladora {
         Page<Profesor> profesor = profesorServicio.findAllPageable(PageRequest.of(evalPage, evalPageSize));
         Pagina pagina = new Pagina(profesor.getTotalPages(), profesor.getNumber(), BUTTONS_TO_SHOW);
 
+    	model.addAttribute("mensaje", mensaje);
         model.addAttribute("profesores", profesor);
         model.addAttribute("selectedPageSize", evalPageSize);
         model.addAttribute("pagina", pagina);
-        model.addAttribute("nuevoProfesor", new Profesor());
+        mensaje = "";
         return "Profesor/crudProfesores";
     }
 	
@@ -102,18 +104,11 @@ public class ProfesorControladora {
      * @param id es el id del profesor que se desea editar
      * @return el nombre de la pagina donde se podra realizar la edicion
      */
-    @RequestMapping(value = "profesores/editar/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "editar/{id}")
     public String mostrarEditar(@PathVariable String id, Model model) {
-
-        model.addAttribute("profesor", profesorServicio.obtenerProfesor(id));
-        return "Profesor/editarProfesor";
-    }
-
-    @RequestMapping(value = "profesores/editar/{id}", method = RequestMethod.POST)
-    public String actualizar(@PathVariable String id,@RequestBody Profesor p,Model model) {
-    	profesorServicio.actualizar(id,p);
-    	model.addAttribute("mensaje", "El profesor "+p.getNombre1()+" "+p.getNombre2()+" ha sido actualizado");
-        return "Profesor/editarProfesor";
+    	Profesor profesor = profesorServicio.obtenerProfesor(id);
+        model.addAttribute("profesor", profesor);
+        return "Profesor/formularioProfesor";
     }
 
     /**Permite adicionar un nuevo profesor ingresando la ruta: 'profesor/nuevo'
@@ -121,9 +116,10 @@ public class ProfesorControladora {
      * con thymeleaf
      * @return el nombre de la pagina donde se podra realizar la adicion
      */
-    @RequestMapping("/nuevo")
+    @RequestMapping("/nuevo/")
     public String nuevaProfesor(Model model) {
-        return "formularioProfesor";
+        model.addAttribute("profesor", new Profesor());    	
+        return "Profesor/formularioProfesor";
     }
 
     /**Recibe un profesor a traves de una peticion POST por la ruta
@@ -131,29 +127,29 @@ public class ProfesorControladora {
      * @param profesor profesor que se recibe por la peticion POST
      * @return el nombre de la pagina donde se redireccionara
      */
-    @PostMapping("/")
+    @PostMapping(value = {"/nuevo/", "/editar/{id}"})
     // Con @valid nos aseguramos que el contenido de la peticion sea valido
     public String guardarProfesores(@Valid Profesor profesor, BindingResult bidingResult, Model model) {
     	System.out.println("Entro post");
-    	if(!bidingResult.hasErrors()) {
-            profesorServicio.guardarProfesor(profesor);
-            model.addAttribute("exito", 1);
-
-        	return "Profesor/crudProfesores";
+    	if(bidingResult.hasErrors()) {
+        	return "Profesor/formularioProfesor";
     	}
-    	return "redirect:/profesor/#addEmployeeModal";
+        profesorServicio.guardarProfesor(profesor);
+        mensaje = "El pofesor se guardo correctamente";
+    	return "redirect:/profesor/";
     }
 
     /**Permite eliminar un profesor dado un id,ingresando a la ruta: 'profesor/eliminar/{id}'
      * @param id corresponde al id del profesor que se desea eliminar
      * @return el nombre de la pagina donde se redireccionara al usuario despues de la eliminacion
      */
-    @RequestMapping(value = "profesores/eliminar/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/eliminar/{id}")
     public String eliminar(@PathVariable String id,Model model) {
-    	if(!profesorServicio.validarDaclase(id)){
+    	mensaje = "El profesor no se puede eliminar debido a que esta referenciado en la tabla grupos";
+    	if(profesorServicio.validarDaclase(id)){
     		 profesorServicio.eliminarProfesor(id);
+    		 mensaje = "El profesor se ha eliminado correctamente";
     	}
-
-        return "redirect:/profesores";
+        return "redirect:/profesor/";
     }
 }

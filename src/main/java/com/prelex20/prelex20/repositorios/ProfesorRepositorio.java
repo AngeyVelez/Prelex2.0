@@ -20,13 +20,6 @@ import com.prelex20.prelex20.entidades.Profesor;
 @Transactional
 public interface ProfesorRepositorio extends JpaRepository<Profesor, String>{
 	
-	/** obtiene una lista de grupos en el que profesor da clase
-	 * @param id identificador unico del profesor
-	 * @return Linkedlist de objetos con los grupos que da el profesor.
-	 */
-	@Query(value = "select profesor_numero_documento from grupo where profesor_numero_documento= ?1 ;", nativeQuery = true)
-	LinkedList<Object[]> validarProfesorEnGrupo(String id);
-	
 	/**
 	 * @param p la nueva informacion del profesor
 	 * @param id 
