@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.prelex20.prelex20.entidades.Grupo;
 import com.prelex20.prelex20.entidades.Nivel;
+import com.prelex20.prelex20.entidades.Profesor;
 import com.prelex20.prelex20.repositorios.GrupoRepositorio;
 
 /**Clase que implementa la interfaz GrupoServicio  para luego usar los metodos
@@ -74,7 +77,7 @@ public class GrupoServicioImpl implements GrupoServicio{
 
 	@Override
 	public boolean validarEstMatriculadosxGrupo(int id) {
-		if(!grupoRepositorio.matriculadosxGrupo(id).isEmpty())
+		if(grupoRepositorio.matriculadosxGrupo(id).isEmpty())
 		{
 			return true;
 		}
@@ -101,5 +104,10 @@ public class GrupoServicioImpl implements GrupoServicio{
 	@Override
 	public void actualizarGrupo(int id, Grupo g) {
 		grupoRepositorio.actualizar(id,g);
+	}
+
+	@Override
+    public Page<Grupo> findAllPageable(Pageable pageable) {
+        return grupoRepositorio.findAll(pageable);
 	}
 }

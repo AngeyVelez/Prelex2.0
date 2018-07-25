@@ -71,7 +71,6 @@ public class Matricula implements Serializable{
 		return this.estudiante;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
 
 	/*
 		@JoinColumns({
@@ -81,6 +80,8 @@ public class Matricula implements Serializable{
 			@JoinColumn(name = "grupo_nivel_codigo", referencedColumnName = "nivelCodigo")
 		})
 	*/
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "grupoId")
 	public Grupo getGrupo(){
 		return this.grupo;
