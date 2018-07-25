@@ -18,14 +18,21 @@
 			<div class="col-md-12 row justify-content-center" id="contenido">
 				<form id="formulario" class="card mt-5 col-md-6 col-md-offset-6">
 					<div class="card-body">
+						<h2>Generar reporte de ingresos</h2>
 						<div class="form-group">
-							<label for="fechaInicio" class="col-md-5  mt-5"> Fecha
-								Inicio </label> <input type="date" class="col-md-5 mt-5"
-								id="fechaInicio" required="required" /> <label for="fechaFin"
-								class="col-md-5 mt-5"> Fecha Fin </label> <input type="date"
-								class="col-md-5 mt-5" id="fechaFin" required="required" /> <label
-								for="periodo" class="col-md-5 float-left mt-5"> Periodo
-							</label> <select class="form-control col-md-5 float-left mt-5"
+							<label for="fechaInicio" class=""> Fecha
+								Inicio </label> <input type="date" class="form-control"
+								id="fechaInicio" required="required" />
+
+						</div>
+						<div class="form-group">
+							<label for="fechaFin" class=""> Fecha Fin </label> <input
+								type="date" class="form-control" id="fechaFin"
+								required="required" />
+						</div>
+						<div class="form-group">
+							<label for="periodo" class="">
+								Periodo </label> <select class="form-control"
 								id="periodo">
 								<option value="ano" selected="selected">Año</option>
 								<option value="ciclo">Ciclo</option>
@@ -33,11 +40,12 @@
 								<option value="grupo">Grupo</option>
 							</select>
 						</div>
-						<button id="btnGenerar"
-							class="btn btn-primary btn-lg active mt-5 col-md-5">
-							Generar</button>
-						<a href="#" class="btn btn-secondary btn-lg active mt-5 col-md-5"
-							role="button" aria-pressed="true"> Volver </a>
+
+						<div class='form-group'>
+							<button id="btnGenerar"
+								class="btn btn-primary btn-block btn-lg active">
+								Generar</button>
+						</div>
 					</div>
 				</form>
 			</div>

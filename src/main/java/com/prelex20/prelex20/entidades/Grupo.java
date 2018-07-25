@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "grupo")
@@ -46,48 +47,55 @@ public class Grupo implements java.io.Serializable {
 			@AttributeOverride(name = "nivelCodigo", column = @Column(name = "nivelCodigo", nullable = false)),
 	})*/
 	@Id
+	@NotNull
 	@Column(name = "id")
 	public int getId() {
 		return this.id;
 	}
 
-
+	@NotNull(message = "el número debe contener al menos 1 dígito")
+	@Size(min = 1, message = "el número debe contener al menos 1 dígito")
 	@Column(name = "numero")
 	public int getNumero() {
 		return numero;
 	}
 
-
+	@NotNull(message = "el ciclo debe contener al menos 1 caracter")
+	@Size(min = 1, message = "el ciclo debe contener al menos 1 caracter")
 	@Column(name = "ciclo")
 	public String getCiclo() {
 		return ciclo;
 	}
 
+	@NotNull(message = "debe ingresar una fecha final")
 	@Column(name = "fechaFin")
 	public Date getFechaFin() {
 		return fechaFin;
 	}
 	
+	@NotNull(message = "debe ingresar una fecha inicial")
 	@Column(name = "fechaInicio")
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 	
+	@NotNull(message = "debe ingresar la jornada")
 	@Column(name = "jornada")
 	public String getJornada() {
 		return jornada;
 	}
 
-
 	//@MapsId("nivelCodigo")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "nivelCodigo", nullable = false, insertable = false, updatable = false)
+	@NotNull(message = "debe ingresar el código del nivel")
 	public Nivel getNivel() {
 		return this.nivel;
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "profesor_numero_documento", nullable = false, insertable = false, updatable = false)
+	@NotNull(message = "debe ingresar el número del documento del profesor")
 	public Profesor getProfesor() {
 		return profesor;
 	}

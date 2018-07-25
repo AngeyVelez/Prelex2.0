@@ -45,7 +45,7 @@ public class Profesor implements java.io.Serializable {
 	}
 	
 	@NotNull
-	@Size(min = 5, message = "apellido con menos de 5 caracteres")
+	@Size(min = 3, message = "el apellido debe contener más de 3 caracteres")
 	@Column(name = "apellido1", nullable = false)
 	public String getApellido1() {
 		return apellido1;
@@ -56,26 +56,23 @@ public class Profesor implements java.io.Serializable {
 		return apellido2;
 	}
 
-	
 	@Column(name = "direccion")
 	public String getDireccion() {
 		return direccion;
 	}
 
-	@Size(min = 5)
 	@Column(name = "eps")
 	public String getEps() {
 		return eps;
 	}
 
-	@Size(min = 5)
 	@Column(name = "especialidad")
 	public String getEspecialidad() {
 		return especialidad;
 	}
 
 	@NotNull
-	@Size(min = 5)
+	@Size(min = 3, message = "el nombre debe contener más de 3 dígitos")
 	@Column(name = "nombre1", nullable = false)
 	public String getNombre1() {
 		return nombre1;
@@ -88,12 +85,14 @@ public class Profesor implements java.io.Serializable {
 
 	@Id
 	@NotNull
+	@Size(min = 5, message = "el documento debe contener más de 5 dígitos")
 	@Column(name = "numero_documento", unique = true, nullable = false)
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
 
 	@NotNull
+	@Size(min = 7, message = "el telefono debe contener más de 7 dígitos")
 	@Column(name = "telefono")
 	public String getTelefono() {
 		return telefono;

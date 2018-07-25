@@ -3,8 +3,12 @@ package com.prelex20.prelex20.servicios;
 import java.sql.Date;
 import java.util.LinkedList;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.prelex20.prelex20.entidades.Grupo;
 import com.prelex20.prelex20.entidades.Nivel;
+import com.prelex20.prelex20.entidades.Profesor;
 
 /**Interface para nombrar los metodos los cuales seran implementados
  * @author deivid, sebastian 
@@ -80,5 +84,8 @@ public interface GrupoServicio {
 	
 	/* ¡ATENCION!: Recuerde que yo no documento los metodos en la clase que la 
 	implementa ya que seria duplicar documentacion. ATT: Administador de Calidad SOFTWARE Inc. */
+	
+
+	Page<Grupo> findAllPageable(Pageable pageable);
 	
 }
