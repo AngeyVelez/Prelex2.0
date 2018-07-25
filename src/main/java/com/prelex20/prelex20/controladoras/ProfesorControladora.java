@@ -64,11 +64,11 @@ public class ProfesorControladora {
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<Profesor> profesor = profesorServicio.findAllPageable(PageRequest.of(evalPage, evalPageSize));
-        Pagina pagina = new Pagina(profesor.getTotalPages(), profesor.getNumber(), BUTTONS_TO_SHOW);
+        Page<Profesor> paginas = profesorServicio.findAllPageable(PageRequest.of(evalPage, evalPageSize));
+        Pagina pagina = new Pagina(paginas.getTotalPages(), paginas.getNumber(), BUTTONS_TO_SHOW);
 
     	model.addAttribute("mensaje", mensaje);
-        model.addAttribute("profesores", profesor);
+        model.addAttribute("paginas", paginas);
         model.addAttribute("selectedPageSize", evalPageSize);
         model.addAttribute("pagina", pagina);
         mensaje = "";
@@ -144,7 +144,7 @@ public class ProfesorControladora {
      * @return el nombre de la pagina donde se redireccionara al usuario despues de la eliminacion
      */
     @GetMapping(value = "/eliminar/{id}")
-    public String eliminar(@PathVariable String id,Model model) {
+    public String eliminar(@PathVariable String id) {
     	mensaje = "El profesor no se puede eliminar debido a que esta referenciado en la tabla grupos";
     	if(profesorServicio.validarDaclase(id)){
     		 profesorServicio.eliminarProfesor(id);
