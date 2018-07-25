@@ -2,67 +2,53 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Registrar</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>	
+<title>Registration</title>
+<div th:replace="Base/base :: estilosBootstrap"></div>
 </head>
 <body>
-	<nav th:replace ="Base/base :: nav"></nav>
-	
-	<form th:action="@{/}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Login</button>
-	</form>	
-	
+	<nav th:replace="Base/base :: nav"></nav>
+
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-4 offset-4 mt-5 align-self-center card">
 				<form autocomplete="off" th:action="@{/registration}"
-					th:object="${userForm}" method="post" class="form-horizontal"
+					th:object="${userForm}" method="post" class="form-horizontal container"
 					role="form" id="user">
-					<h2>Formulario de registro</h2>
+					<h2 class="text-center">Registration Form</h2>
 					<div class="form-group">
-						<div class="col-sm-9">
-						<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-								class="validation-message" id="username"></label>
-						<input type="text" th:field="*{username}" placeholder="Nombre de Usuario"
-								class="form-control" /> 
-						</div>
+						<label th:if="${#fields.hasErrors('username')}"
+							th:errors="*{username}" class="validation-message" id="username"></label>
+						<input type="text" th:field="*{username}"
+							placeholder="Nombre de Usuario" class="form-control" />
 					</div>
 					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" id = "password"/> <label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-								class="validation-message"></label>
-						</div>
+						<input type="password" th:field="*{password}"
+							placeholder="Password" class="form-control" id="password" /> <label
+							th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+							class="validation-message"></label>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="password" th:field="*{passwordConfirm}"
-								placeholder="Password Confirm" class="form-control" id="passwordConfirm"/> <label
-								th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"
-								class="validation-message"></label>
-						</div>
+						<input type="password" th:field="*{passwordConfirm}"
+							placeholder="Password Confirm" class="form-control"
+							id="passwordConfirm" /> <label
+							th:if="${#fields.hasErrors('passwordConfirm')}"
+							th:errors="*{passwordConfirm}" class="validation-message"></label>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-9">
-							<select th:field="*{roles}" class="form-control" id = "rol">
-								<option th:each="rol: ${roles}" th:text="${rol.getName()}" th:value="${rol.getName()}"></option>
-							</select>
-						</div>
+						<select th:field="*{roles}" class="form-control" id="rol">
+							<option th:each="rol: ${roles}" th:text="${rol.getName()}"
+								th:value="${rol.getName()}"></option>
+						</select>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block" id="btnRegistrar">Registrar usuario</button>
-						</div>
+						<button type="submit" class="btn btn-primary btn-block"
+							id="btnRegistrar">Register User</button>
 					</div>
-					
 					<span th:utext="${successMessage}"></span>
-					
-					
 				</form>
 			</div>
 		</div>
 	</div>
-	<div th:replace ="Base/base :: scriptsBootstrap"></div>
+	<div th:replace="Base/base :: scriptsBootstrap"></div>
 </body>
 </html>

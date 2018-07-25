@@ -5,20 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 <title>Administrar grupos</title>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"></link>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-	integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-	crossorigin="anonymous">
+<div th:replace="Base/base :: estilosBootstrap"></div>
 <link href="css/cruds.css" th:href="@{/css/cruds.css}" rel="stylesheet"></link>
 
 </head>
 <body>
+	<nav th:replace="Base/base :: nav"></nav>
 	<div class="container">
 		<div th:if="${mensaje} != ''"
 			class="alert alert-info alert-dismissible fade show" role="alert">
@@ -141,16 +133,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" th:src="@{/js/mostrarGrupos.js}"></script>
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-		integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-		integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-		crossorigin="anonymous"></script>
+	<div th:replace="Base/base :: scriptsBootstrap"></div>
 </body>
 </html>
