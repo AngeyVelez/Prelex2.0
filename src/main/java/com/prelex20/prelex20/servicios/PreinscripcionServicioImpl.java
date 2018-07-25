@@ -1,9 +1,12 @@
 package com.prelex20.prelex20.servicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.prelex20.prelex20.entidades.Preinscripcion;
+import com.prelex20.prelex20.entidades.Profesor;
 import com.prelex20.prelex20.repositorios.PreinscripcionRepositorio;
 
 import java.util.LinkedList;
@@ -81,5 +84,10 @@ public class PreinscripcionServicioImpl implements PreinscripcionServicio {
 		LinkedList<Object[]> TotalesxIdioma = new LinkedList<>();
 		TotalesxIdioma = preinscripcionRepositorio.preincripcionesTotalxIdioma();
 		return TotalesxIdioma;
+	}
+	
+	@Override
+    public Page<Preinscripcion> findAllPageable(Pageable pageable) {
+        return preinscripcionRepositorio.findAll(pageable);
 	}
 }

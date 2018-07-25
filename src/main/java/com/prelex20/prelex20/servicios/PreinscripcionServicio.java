@@ -2,7 +2,11 @@ package com.prelex20.prelex20.servicios;
 
 import java.util.LinkedList;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.prelex20.prelex20.entidades.Preinscripcion;
+import com.prelex20.prelex20.entidades.Profesor;
 
 /**Interface para definir los métodos relacionados con el manejo
  * de preinscripciones
@@ -59,4 +63,6 @@ public interface PreinscripcionServicio {
 	 * @return Lista de tipo Object[ ] con todos los idiomas y su respectiva cantidad total de preinscripciones.
 	 */
 	LinkedList<Object[]> obtenerTotalesxIdioma();
+
+	Page<Preinscripcion> findAllPageable(Pageable pageable);
 }

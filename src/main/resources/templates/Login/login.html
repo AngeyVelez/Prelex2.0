@@ -2,27 +2,48 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Login</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+<title>Login</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link href="/css/login.css" th:href="@{/css/login.css}" rel="stylesheet"></link>
 </head>
-<body>	
-	<nav th:replace ="Base/base :: nav"></nav>
+<body>
+	<nav th:replace="Base/base :: nav"></nav>
 	<div class="container">
-		<form th:action="@{/login}" method="POST" class="form-signin">
-			<h3 class="form-signin-heading" th:text="Login"></h3>
-			<br></br>
-			 
-			<input type="text" id="username" name="username" th:placeholder="Usuario"
-				class="form-control" ></input> <br></br>
-			<input type="password"  th:placeholder="Password" id="password" name="password" class="form-control"></input> <br></br> 
-				
-			<div align="center" th:if="${param.error}">
-				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+		<div class="modal-dialog modal-login card">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="avatar">
+						<img src = "/img/avatar.png" alt="Avatar"></img>
+					</div>
+					<h4 class="modal-title">Login</h4>
+				</div>
+				<div class="modal-body">
+					<form th:action="@{/login}" method="POST" class="form-signin">
+						<div class = "form-group">
+							<input type="text" id="username" name="username"
+							th:placeholder="Usuario" class="form-control" required = "required"></input>
+						</div>
+						<div class = "form-group">
+							<input type="password" th:placeholder="Password" id="password"
+							name="password" class="form-control" required = "required"></input>
+						</div>
+						<div align="center" th:if="${param.error}">
+							<p style="font-size: 20; color: #FF1C19;">Email or Password
+								invalid, please verify</p>
+						</div>
+						<div class = "form-group">
+							<button class="btn btn-lg btn-primary btn-block login-btn" name="Submit"
+							value="Login" type="Submit" th:text="Login"></button>
+						</div>
+					</form>
+				</div>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
-		</form>
+		</div>
 	</div>
-	
-	<div th:replace ="Base/base :: scriptsBootstrap"></div>
+
+	<div th:replace="Base/base :: scriptsBootstrap"></div>
 </body>
 </html>

@@ -5,20 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 <title>Administrar profesores</title>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"></link>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-	integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-	crossorigin="anonymous">
+<div th:replace ="Base/base :: estilosBootstrap"></div>
 <link href="css/cruds.css" th:href="@{/css/cruds.css}" rel="stylesheet"></link>
 
 </head>
 <body>
+	<nav th:replace="Base/base :: nav"></nav>
 	<div class="container">
 		<div th:if="${mensaje} != ''"
 			class="alert alert-info alert-dismissible fade show" role="alert">
@@ -57,7 +49,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="profesor : ${profesores}">
+					<tr th:each="profesor : ${paginas}">
 						<td th:text="${profesor.getNumeroDocumento()}"></td>
 						<td th:text="${profesor.nombreCompleto()}"></td>
 						<td th:text="${profesor.getEspecialidad()}"></td>
@@ -108,97 +100,36 @@
 				<!-- <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div> -->
 				<ul class="pagination">
 					<li
-						th:class="${profesores.number == 0} ? 'page-item disabled': 'page-item'">
+						th:class="${paginas.number == 0} ? 'page-item disabled': 'page-item'">
 						<a class="page-link"
 						th:href="@{page(pageSize=${selectedPageSize}, page=1)}">Inicio</a>
 					</li>
 					<li
-						th:class="${profesores.number == 0} ? 'page-item disabled': 'page-item'">
+						th:class="${paginas.number == 0} ? 'page-item disabled': 'page-item'">
 						<a class="page-link"
-						th:href="@{page(pageSize=${selectedPageSize}, page=${profesores.number})}">Anterior</a>
+						th:href="@{page(pageSize=${selectedPageSize}, page=${paginas.number})}">Anterior</a>
 					</li>
 					<li
-						th:class="${profesores.number == (page - 1)} ? 'page-item active': 'page-item'"
+						th:class="${paginas.number == (page - 1)} ? 'page-item active': 'page-item'"
 						th:each="page : ${#numbers.sequence(pagina.startPage, pagina.endPage)}">
 						<a class="page-link"
 						th:href="@{page(pageSize=${selectedPageSize}, page=${page})}"
 						th:text="${page}"></a>
 					</li>
 					<li
-						th:class="${profesores.number + 1 == profesores.totalPages} ? 'page-item disabled': 'page-item'">
+						th:class="${paginas.number + 1 == paginas.totalPages} ? 'page-item disabled': 'page-item'">
 						<a class="page-link"
-						th:href="@{page(pageSize=${selectedPageSize}, page=${profesores.number + 2})}">Siguiente</a>
+						th:href="@{page(pageSize=${selectedPageSize}, page=${paginas.number + 2})}">Siguiente</a>
 					</li>
 					<li
-						th:class="${profesores.number + 1 == profesores.totalPages} ? 'page-item disabled': 'page-item'">
+						th:class="${paginas.number + 1 == paginas.totalPages} ? 'page-item disabled': 'page-item'">
 						<a class="page-link"
-						th:href="@{page(pageSize=${selectedPageSize}, page=${profesores.totalPages})}">Final</a>
+						th:href="@{page(pageSize=${selectedPageSize}, page=${paginas.totalPages})}">Final</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Editar profesor</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label>Documento</label> <input type="text" class="form-control"
-								required="required"></input>
-						</div>
-						<div class="form-group">
-							<label>Nombre completo</label> <input type="text"
-								class="form-control" required="required"></input>
-						</div>
-						<div class="form-group">
-							<label>Especialidad</label> <input type="text"
-								class="form-control" required="required"></input>
-						</div>
-						<div class="form-group">
-							<label>Email</label> <input type="email" class="form-control"
-								required="required"></input>
-						</div>
-						<div class="form-group">
-							<label>Teléfono</label> <input type="text" class="form-control"
-								required="required"></input>
-						</div>
-						<div class="form-group">
-							<label>Eps</label> <input type="text" class="form-control"
-								required="required"></input>
-						</div>
-						<div class="form-group">
-							<label>Dirección</label> <input type="text" class="form-control"
-								required="required"></input>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal"
-							value="Cancel"></input> <input type="submit" class="btn btn-info"
-							value="Save"></input>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<script type="text/javascript" th:src="@{/js/mostrarProfesores.js}"></script>
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-		integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-		integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-		crossorigin="anonymous"></script>
+	<div th:replace ="Base/base :: scriptsBootstrap"></div>
 </body>
 </html>
